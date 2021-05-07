@@ -1,0 +1,24 @@
+@using global::TodoList.Store.TodoListUseCase
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+@page "/TodoList"
+<h3>TodoList</h3>
+<ul>
+    @foreach (var listEntry in TodoListState.Value.TodoEntries)
+    {
+        <li>@listEntry.Value</li>
+    }f
+</ul>
+
+
+<input @bind="TodoInputField" style="width: 200px"/>
+<button @onclick="Add">Add</button>
+
+
+@code {
+    private string TodoInputField { get; set; }
+
+    public void Add()
+    {
+        Dispatcher.Dispatch(new AddTodoAction(TodoInputField));
+    }
+}
